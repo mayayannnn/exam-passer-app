@@ -1,20 +1,19 @@
-from database import Category
+from database import Category,MainCategory,answer
 from flask import Flask
 from flask import render_template
+import random
 
 app = Flask(__name__)
 
 @app.route("/select-main-category")
 def select_main_category():
-    return render_template("select_main_category.html")
-
-@app.route("/select-sub-category")
-def select_sub_category():
-    return render_template("select_sub_category.html")
+    main_category_ids = Category.select()
+    return render_template("select_main_category.html",main_category_ids=main_category_ids)
 
 @app.route("/quiz/<id>")
 def quiz(id):
-    return render_template("quiz.html")
+    datas = MainCategory.select().where(MainCategory.category_id == id)
+    return render_template("quiz.html",datas = datas)
 
 @app.route("/answer/<id>")
 def answer(id):

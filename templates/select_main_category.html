@@ -9,7 +9,10 @@
 </head>
 <body>
     <h1>メインカテゴリ選択</h1>
-    <a href="/select-sub-category">次へ</a>
+    {% for main_category_id in main_category_ids %}
+    <a href="/quiz/{{ main_category_id.id}}">{{ main_category_id.main_category_id }}</a>
+    {% endfor %}
+    
     <a href="/result">今のやつ</a>
 </body>
 </html>

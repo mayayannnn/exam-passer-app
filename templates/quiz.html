@@ -9,6 +9,9 @@
 </head>
 <body>
     <h1>問題</h1>
+    {% for data in datas %}
+    <p>{{ data.name }}</p>
+    {% endfor %}
     <a href="/answer/1">次へ</a>
 </body>
 </html>

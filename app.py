@@ -1,7 +1,7 @@
 from database import Category,MainCategory,answer
 from flask import Flask
 from flask import render_template
-import random
+from peewee import fn
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def select_main_category():
 
 @app.route("/quiz/<id>")
 def quiz(id):
-    datas = MainCategory.select().where(MainCategory.category_id == id)
+    datas = MainCategory.select().where(MainCategory.category_id == id).order_by(fn.Random()).limit(10)
     return render_template("quiz.html",datas = datas)
 
 @app.route("/answer/<id>")

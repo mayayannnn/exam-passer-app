@@ -10,8 +10,13 @@
 <body>
     <h1>問題</h1>
     {% for data in datas %}
-    <p>{{ data.name }}</p>
-    {% endfor %}
+
+    <ul class="list-group">
+        <li class="list-group-item"><p>{{ data.name }}</p></li>
+    
+        {% endfor %}
+    </ul>
+    
     <a href="/answer/1">次へ</a>
 </body>
 </html>

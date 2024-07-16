@@ -11,7 +11,6 @@
     <h1>メインカテゴリ選択</h1>
     {% for main_category_id in main_category_ids %}
     <div class="d-grid gap-2">
-    <a href="/quiz/{{ main_category_id.id}}" class="btn btn-primary">{{ main_category_id.main_category_id }}</a>
     {% endfor %}
     </div>
     

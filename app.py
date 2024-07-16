@@ -12,12 +12,13 @@ def select_main_category():
 
 @app.route("/quiz/<id>")
 def quiz(id):
-    datas = MainCategory.select().where(MainCategory.category_id == id).order_by(fn.Random()).limit(10)
+    datas = MainCategory.select().where(MainCategory.category_id == id).order_by(fn.Random()).limit(1)
     return render_template("quiz.html",datas = datas)
 
 @app.route("/answer/<id>")
 def answer(id):
-    return render_template("answer.html")
+    
+    return render_template("answer.html",id=id)
 
 @app.route("/result")
 def result():

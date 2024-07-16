@@ -15,10 +15,16 @@ def quiz(id):
     datas = MainCategory.select().where(MainCategory.category_id == id).order_by(fn.Random()).limit(1)
     return render_template("quiz.html",datas = datas)
 
-@app.route("/answer/<id>")
-def answer(id):
-    
-    return render_template("answer.html",id=id)
+@app.route("/answer/<id>/<answer_id>")
+def answer(id,answer_id):
+    id = int(id)
+    answer = MainCategory.get(MainCategory.id == id)
+    if answer.answer == int(answer_id):
+        result = "正解"
+    else:
+        result = "不正解"
+    print("これがデータ:" + str(answer))
+    return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result)
 
 @app.route("/result")
 def result():

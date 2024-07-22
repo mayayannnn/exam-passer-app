@@ -4,6 +4,8 @@ from flask import render_template
 from peewee import fn
 
 app = Flask(__name__)
+page = 0
+
 
 @app.route("/select-main-category")
 def select_main_category():
@@ -12,8 +14,9 @@ def select_main_category():
 
 @app.route("/quiz/<id>")
 def quiz(id):
+    page = page + 1
     datas = MainCategory.select().where(MainCategory.category_id == id).order_by(fn.Random()).limit(1)
-    return render_template("quiz.html",datas = datas)
+    return render_template("quiz.html",datas = datas,page = page)
 
 @app.route("/answer/<id>/<answer_id>")
 def answer(id,answer_id):

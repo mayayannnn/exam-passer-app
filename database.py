@@ -1,52 +1,61 @@
 from peewee import *
+import datetime
 
 db = SqliteDatabase("exam_passer_app.db")
 
-class User(Model):
+class BaseModel(Model):
+    created_at = DateTimeField(default=datetime.datetime.now)
+    updated_at = DateTimeField(default=datetime.datetime.now)
+    deleted_at = DateTimeField(default=None)
+
+    class Meta:
+        abstract = True
+
+class User(BaseModel):
     username = CharField()
     password= CharField()
 
     class Meta:
         database = db
 
-class MainCategory(Model):
+class MainCategory(BaseModel):
     name = CharField()
 
     class Meta:
         database = db
 
-class Answer(Model):
+class Answer(BaseModel):
     name= CharField()
 
     class Meta:
         database = db
 
-class Question(Model):
+class Question(BaseModel):
     year = IntegerField()
-    main_category_id = IntegerField()
+    main_category_id = ForeignKeyField(MainCategory)
     content = CharField()
-    answer_id = IntegerField()
+    answer_id = ForeignKeyField(Answer)
 
     class Meta:
         database = db
 
-class Result(Model):
-    user_id = IntegerField()
-    question_id = IntegerField()
+class Result(BaseModel):
+    user_id = ForeignKeyField(User)
+    question_id = ForeignKeyField(Question)
     result = CharField()
 
     class Meta:
         database = db
 
-class Group(Model):
+class Group(BaseModel):
     name = CharField()
 
     class Meta:
         database = db
 
-class UserGrop(Model):
-    group_id = IntegerField()
-    user_id = IntegerField()
+class UserGrop(BaseModel):
+    group_id = ForeignKeyField(Group)
+    user_id = ForeignKeyField(User)
 
     class Meta:
         database = db

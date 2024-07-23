@@ -2,6 +2,7 @@ from database import Category,MainCategory,answer
 from flask import Flask
 from flask import render_template
 from peewee import fn
+from flask import request
 
 app = Flask(__name__)
 page = 0
@@ -31,7 +32,11 @@ def answer(id,answer_id):
 
 @app.route("/result")
 def result():
-    return render_template("result.html")
+    page = request.args.get("page")
+    print("page=", page)
+    return render_template(
+        "result.html", page=int(page)
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

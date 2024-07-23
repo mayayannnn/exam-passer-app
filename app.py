@@ -1,4 +1,4 @@
-from database import Category,MainCategory,answer
+from database import MainCategory
 from flask import Flask
 from flask import render_template
 from peewee import fn

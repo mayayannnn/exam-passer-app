@@ -15,9 +15,9 @@ def select_main_category():
 
 @app.route("/quiz/<id>")
 def quiz(id):
-    page = page + 1
+    page = request.args.get("page")
     datas = MainCategory.select().where(MainCategory.category_id == id).order_by(fn.Random()).limit(1)
-    return render_template("quiz.html",datas = datas,page = page)
+    return render_template("quiz.html",datas = datas, page=int(page))
 
 @app.route("/answer/<id>/<answer_id>")
 def answer(id,answer_id):
@@ -32,10 +32,9 @@ def answer(id,answer_id):
 
 @app.route("/result")
 def result():
-    page = request.args.get("page")
     print("page=", page)
     return render_template(
-        "result.html", page=int(page)
+        "result.html",
     )
 
 if __name__ == "__main__":

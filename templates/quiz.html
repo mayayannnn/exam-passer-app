@@ -16,10 +16,11 @@
         <li class="list-group-item"><p>{{ data.name }}</p></li>
         <a href="/answer/{{ data.id }}/1">〇</a>
         <a href="/answer/{{ data.id }}/2">×</a>
+        <a href="/quiz/{{ data.category_id }}?page={{ page+1 }}">次へ</a>
+
         {% endfor %}
     </ul>
 
-    <h1>{{ page }}</h1>
 
 
 

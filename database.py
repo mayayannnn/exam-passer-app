@@ -1,9 +1,10 @@
 from peewee import *
 import datetime
+from flask_login import UserMixin
 
 db = SqliteDatabase("exam_passer_app.db")
 
-class BaseModel(Model):
+class BaseModel(UserMixin,Model):
     created_at = DateTimeField(default=datetime.datetime.now)
     updated_at = DateTimeField(default=datetime.datetime.now)
     deleted_at = DateTimeField(default=datetime.datetime.now)

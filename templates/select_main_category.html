@@ -11,9 +11,10 @@
     <h1>メインカテゴリ選択</h1>
     {% for main_category_name in main_category_names %}
     <div class="d-grid gap-2">
-    <a href="/quiz/{{ main_category_name.id}}" class="btn btn-primary">{{ main_category_name.name }}</a>
+    <a href="/quiz/{{ main_category_name.id}}" class="btn btn-primary">{{ main_category_name.name }}?page=1</a>
     {% endfor %}
     
+    <h1>ようこそ　{{ user.username }}　さん</h1>
     <a href="/result">今のやつ</a>
 </body>
 </html>

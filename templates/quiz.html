@@ -13,7 +13,7 @@
     {% for data in datas %}
 
     <ul class="list-group">
-        <li class="list-group-item"><p>{{ data.name }}</p></li>
+        <li class="list-group-item"><p>{{ data.content }}</p></li>
         <a href="/answer/{{ data.id }}/1">〇</a>
         <a href="/answer/{{ data.id }}/2">×</a>
         <a href="/quiz/{{ data.main_category_id }}?page={{ page+1 }}">次へ</a>

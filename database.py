@@ -6,13 +6,14 @@ db = SqliteDatabase("exam_passer_app.db")
 class BaseModel(Model):
     created_at = DateTimeField(default=datetime.datetime.now)
     updated_at = DateTimeField(default=datetime.datetime.now)
-    deleted_at = DateTimeField(default=None)
+    deleted_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         abstract = True
 
 class User(BaseModel):
-    username = CharField()
+
+    username = CharField(unique=True)
     password= CharField()
 
     class Meta:
@@ -53,7 +54,7 @@ class Group(BaseModel):
     class Meta:
         database = db
 
-class UserGrop(BaseModel):
+class UserGruop(BaseModel):
     group_id = ForeignKeyField(Group)
     user_id = ForeignKeyField(User)
 
@@ -61,4 +62,4 @@ class UserGrop(BaseModel):
         database = db
 
 
-db.create_tables([User,MainCategory,Answer,Question,Result,Group,UserGrop])
+db.create_tables([User,MainCategory,Answer,Question,Result,Group,UserGruop])

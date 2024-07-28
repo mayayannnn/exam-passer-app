@@ -9,20 +9,9 @@
 </head>
 <body>
     <h1>メインカテゴリ選択</h1>
-    {% for main_category_id in main_category_ids %}
-
-    <!-- <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-    <h1>
-    <label class="form-check-label" for="flexCheckDefault">
-            {{ main_category_id.main_category_id }}
-    </label>
-    </h1>
-    </div>
-
-     -->
+    {% for main_category_name in main_category_names %}
     <div class="d-grid gap-2">
-    <a href="/quiz/{{ main_category_id.id}}" class="btn btn-primary">{{ main_category_id.main_category_id }}</a>
+    <a href="/quiz/{{ main_category_name.id}}" class="btn btn-primary">{{ main_category_name.name }}</a>
     {% endfor %}
     
     <a href="/result">今のやつ</a>

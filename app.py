@@ -14,11 +14,11 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(User.id == user_id)
+    return User.get(User.id == int(user_id))
 
 @app.route("/select-main-category")
+@login_required
 def select_main_category():
-    
     user = current_user
     main_category_names = MainCategory.select()
     return render_template("select_main_category.html",user=user,main_category_names=main_category_names)
@@ -26,19 +26,28 @@ def select_main_category():
 @app.route("/quiz/<id>")
 def quiz(id):
     page = request.args.get("page")
+    number = 10
+    if int(page) == int(number) + 1:
+        return redirect(url_for("result"))
     datas = Question.select().where(Question.main_category_id == int(id)).order_by(fn.Random()).limit(1)
-    return render_template("quiz.html",datas = datas, page=int(page))
+    return render_template("quiz.html",datas = datas, page=int(page),page2 = str(page))
 
 @app.route("/answer/<id>/<answer_id>")
 def answer(id,answer_id):
+    page = request.args.get("page")
     id = int(id)
     answer = Question.get(Question.id == id)
-    if answer.answer_id == int(answer_id):
-        result = "正解"
+    if str(answer.answer_id) == str(answer_id):
+        a = 1
     else:
-        result = "不正解"
-    print("これがデータ:" + str(answer))
-    return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result)
+        a = 2
+    d = Answer.get(Answer.id == a)
+    result = d.name
+    return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result,page=int(page))
+
+@app.route("/result")
+def result():
+    return render_template("result.html")
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

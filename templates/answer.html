@@ -10,8 +10,6 @@
 <body>
     <h1>答え</h1>
     <h1>{{ result }}</h1>
-    <a href="/quiz/{{ answer.category_id }}">次へ</a>
-    <a href="/result">結果</a>
-    <a href="/select-main-category">戻る</a>
+    <a href="/quiz/{{ answer.main_category_id }}?page={{ page + 1 }}">次へ</a>
 </body>
 </html>

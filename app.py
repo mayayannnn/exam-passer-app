@@ -33,16 +33,24 @@ def quiz(id):
     return render_template("quiz.html",datas = datas, page=int(page),page2 = str(page))
 
 @app.route("/answer/<id>/<answer_id>")
+@login_required
 def answer(id,answer_id):
     page = request.args.get("page")
     id = int(id)
     answer = Question.get(Question.id == id)
     if str(answer.answer_id) == str(answer_id):
         a = 1
+        kekka = True
     else:
         a = 2
+        kekka = False
     d = Answer.get(Answer.id == a)
     result = d.name
+    # ここから下はresultの作成
+    question_id  = answer.id
+    user_id = current_user.id
+    Result.create(question_id = question_id,user_id=user_id,result=kekka)
+
     return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result,page=int(page))
 
 @app.route("/result")

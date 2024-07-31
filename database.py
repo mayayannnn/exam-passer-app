@@ -44,6 +44,7 @@ class Question(BaseModel):
 class Result(BaseModel):
     user_id = ForeignKeyField(User)
     question_id = ForeignKeyField(Question)
+    my_answer = CharField()
     result = CharField()
 
     class Meta:

@@ -47,15 +47,27 @@ def answer(id,answer_id):
     d = Answer.get(Answer.id == a)
     result = d.name
     # ここから下はresultの作成
+    if int(answer_id) == 1:
+        my_answer = True
+    else:
+        my_answer = False
     question_id  = answer.id
     user_id = current_user.id
-    Result.create(question_id = question_id,user_id=user_id,result=kekka)
-
+    Result.create(question_id = question_id,user_id=user_id,my_answer=my_answer,result=kekka)
     return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result,page=int(page))
 
 @app.route("/result")
+@login_required
 def result():
-    return render_template("result.html")
+    datas = Result.select().where(Result.user_id == current_user.id)
+    datasN = datas[-10:]
+    datas = []
+    datas2 = []
+    for i in datasN:
+        datas.append(Result.get(Result.id == i))
+        datas2.append(Question.get(Question.id == Result.get(Result.id == i).question_id ))
+    return render_template("result.html",datas = datas,datas2 = datas2)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

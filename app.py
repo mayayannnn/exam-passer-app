@@ -78,6 +78,23 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html')
 
+@app.route("/edit_user", methods=['GET', 'POST'])
+@login_required
+def edit_user():
+    user = User.get(User.id == current_user.id)
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form["password"]
+        repassword = request.form["repassword"]
+        user.username = username
+        user.save()
+        # ここからパスワード設定
+        if user.password == password:
+            user.password = repassword
+            user.save()
+        return redirect("/select-main-category")
+    return render_template("/edit_user.html",user=user)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -93,6 +110,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    
     return redirect(url_for('login'))
 
 if __name__ == "__main__":

@@ -60,13 +60,29 @@ def answer(id,answer_id):
 @login_required
 def result():
     datas = Result.select().where(Result.user_id == current_user.id)
-    datasN = datas[-10:]
+    number = 10
+    datasN = datas[-number:]
     datas = []
     datas2 = []
     for i in datasN:
         datas.append(Result.get(Result.id == i))
         datas2.append(Question.get(Question.id == Result.get(Result.id == i).question_id ))
-    return render_template("result.html",datas = datas,datas2 = datas2)
+    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number))
+
+@app.route("/result_all")
+@login_required
+def result_all():
+    datas = Result.select().where(Result.user_id == current_user.id)
+    questions = []
+    categorys = []
+    number = len(datas)
+    for data in datas:
+        question = Question.get(Question.id == data.question_id)
+        questions.append(question)
+    for question in questions:
+        category = MainCategory.get(MainCategory.id == question.main_category_id)
+        categorys.append(category)
+    return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -110,8 +126,27 @@ def login():
 @login_required
 def logout():
     logout_user()
-    
     return redirect(url_for('login'))
+
+@app.route("/group")
+@login_required
+def group():
+    user_groups = UserGruop.select().where(UserGruop.user_id == int(current_user.id))
+    groups = []
+    for user_group in user_groups:
+        groups.append(Group.get(id = user_group.id))
+    return render_template("group.html",groups = groups)
+
+@app.route("/add_group",methods=['GET', 'POST'])
+@login_required
+def add_group():
+    if request.method == "POST":
+        name = request.form["name"]
+        Group.create(name = name)
+        group = Group.get(Group.name == name)
+        UserGruop.create(group_id = group.id,user_id = current_user.id)
+        return redirect(url_for("group"))
+    return render_template("add_group.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

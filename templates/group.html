@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>group</title>
+</head>
+<body>
+    <h1>グループ</h1>
+    {% for group in groups %}
+    <h1>{{ group.name }}</h1>
+    {% endfor %}
+    <a href="/add_group">グループを追加する</a>
+</body>
+</html>

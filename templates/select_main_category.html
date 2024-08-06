@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
     <h1>メインカテゴリ選択</h1>
     <ul class="list-group"></ul>
     {% for main_category_name in main_category_names %}
     <div class="d-grid gap-2">
-            <li class="list-group-item">
-              <input class="form-check-input me-1 " type="checkbox" value="" aria-label="...">
-              {{ main_category_name.name }}
-            </li>
-    <!-- <a href="/quiz/{{ main_category_name.id}}?page=1" class="btn btn-primary">{{ main_category_name.name }}</a> -->
-    {% endfor %}
-</ul>
-    
-    <h1>ようこそ　{{ user.username }}　さん</h1>
-    <a href="/result_all/{{ user.id }}">今のやつ</a>
+        <li class="list-group-item">
+            <input type="checkbox" class="btn-check" id="btn-check-{{ main_category_name.id }}" checked
+                autocomplete="off">
+            <label class="btn btn-primary" for="btn-check-{{ main_category_name.id }}">{{ main_category_name.name
+                }}</label>
+        </li>
+        <!-- <a href="/quiz/{{ main_category_name.id}}?page=1" class="btn btn-primary">{{ main_category_name.name }}</a> -->
+        {% endfor %}
+        </ul>
+
+        <h1>ようこそ　{{ user.username }}　さん</h1>
+        <a href="/result_all/{{ user.id }}">今のやつ</a>
 </body>
+
 </html>

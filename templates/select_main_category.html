@@ -28,6 +28,20 @@
                 <!-- <a href="/quiz/{{ main_category_name.id}}?page=1" class="btn btn-primary">{{ main_category_name.name }}</a> -->
                 {% endfor %}
         </ul>
+
+        <ul class="list-group">
+            {% for question in questions %}
+            <div class="d-grid gap-2">
+                <li class="list-group-item">
+                    <input value="{{ question.id }}" name="year" type="checkbox" class="btn-check"
+                        id="btn-check-{{ question.id }}" autocomplete="off">
+                    <label class="btn btn-primary" for="btn-check-{{ question.id }}">{{
+                        question.year
+                        }}</label>
+                </li>
+            {% endfor %}
+        </ul>
+
         <h1>ようこそ　{{ user.username }}　さん</h1>
         <a href="/result_all/{{ user.id }}">今のやつ</a>
         <input type="submit" value="テスト送信">

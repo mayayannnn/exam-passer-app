@@ -20,8 +20,10 @@ def load_user(user_id):
 @login_required
 def select_main_category():
     user = current_user
+    quesitons =  Question.select(Question.year).distinct()
+    print(quesitons)
     main_category_names = MainCategory.select()
-    return render_template("select_main_category.html",user=user,main_category_names=main_category_names)
+    return render_template("select_main_category.html",user=user,main_category_names=main_category_names,quesitons=quesitons)
 
 @app.route("/quiz/<id>")
 def quiz(id):
@@ -35,6 +37,7 @@ def quiz(id):
 @app.route("/quiz", methods=["POST"])
 def quiz_post():
     data = request.form.getlist("main_category")
+    year = request.form.getlist("year")
     print(data)
     return redirect("/select-main-category")
 

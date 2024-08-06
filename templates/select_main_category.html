@@ -33,9 +33,9 @@
             {% for question in questions %}
             <div class="d-grid gap-2">
                 <li class="list-group-item">
-                    <input value="{{ question.id }}" name="year" type="checkbox" class="btn-check"
-                        id="btn-check-{{ question.id }}" autocomplete="off">
-                    <label class="btn btn-primary" for="btn-check-{{ question.id }}">{{
+                    <input value="{{ question.year }}" name="year" type="checkbox" class="btn-check"
+                        id="btn-check-{{ question.year }}" autocomplete="off">
+                    <label class="btn btn-primary" for="btn-check-{{ question.year }}">{{
                         question.year
                         }}</label>
                 </li>

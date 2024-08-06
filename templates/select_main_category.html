@@ -14,21 +14,24 @@
 
 <body>
     <h1>メインカテゴリ選択</h1>
-    <ul class="list-group"></ul>
-    {% for main_category_name in main_category_names %}
-    <div class="d-grid gap-2">
-        <li class="list-group-item">
-            <input type="checkbox" class="btn-check" id="btn-check-{{ main_category_name.id }}" checked
-                autocomplete="off">
-            <label class="btn btn-primary" for="btn-check-{{ main_category_name.id }}">{{ main_category_name.name
-                }}</label>
-        </li>
-        <!-- <a href="/quiz/{{ main_category_name.id}}?page=1" class="btn btn-primary">{{ main_category_name.name }}</a> -->
-        {% endfor %}
+    <form action="/quiz" method="post">
+        <ul class="list-group">
+            {% for main_category_name in main_category_names %}
+            <div class="d-grid gap-2">
+                <li class="list-group-item">
+                    <input value="{{ main_category_name.id }}" name="main_category" type="checkbox" class="btn-check"
+                        id="btn-check-{{ main_category_name.id }}" autocomplete="off">
+                    <label class="btn btn-primary" for="btn-check-{{ main_category_name.id }}">{{
+                        main_category_name.name
+                        }}</label>
+                </li>
+                <!-- <a href="/quiz/{{ main_category_name.id}}?page=1" class="btn btn-primary">{{ main_category_name.name }}</a> -->
+                {% endfor %}
         </ul>
-
         <h1>ようこそ　{{ user.username }}　さん</h1>
         <a href="/result_all/{{ user.id }}">今のやつ</a>
+        <input type="submit" value="テスト送信">
+    </form>
 </body>
 
 </html>

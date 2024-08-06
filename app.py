@@ -32,6 +32,12 @@ def quiz(id):
     datas = Question.select().where(Question.main_category_id == int(id)).order_by(fn.Random()).limit(1)
     return render_template("quiz.html",datas = datas, page=int(page),page2 = str(page))
 
+@app.route("/quiz", methods=["POST"])
+def quiz_post():
+    data = request.form.getlist("main_category")
+    print(data)
+    return redirect("/select-main-category")
+
 @app.route("/answer/<id>/<answer_id>")
 @login_required
 def answer(id,answer_id):

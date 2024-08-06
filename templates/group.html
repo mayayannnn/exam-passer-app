@@ -8,7 +8,8 @@
 <body>
     <h1>グループ</h1>
     {% for group in groups %}
-    <h1>{{ group.name }}</h1>
+    <a href="/detail_group/{{ group.id }}">{{ group.name }}</a>
+    <br>
     {% endfor %}
     <a href="/add_group">グループを追加する</a>
 </body>

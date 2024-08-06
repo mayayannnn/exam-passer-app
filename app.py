@@ -69,19 +69,33 @@ def result():
         datas2.append(Question.get(Question.id == Result.get(Result.id == i).question_id ))
     return render_template("result.html",datas = datas,datas2 = datas2,number = int(number))
 
-@app.route("/result_all")
+@app.route("/result_all/<id>")
 @login_required
-def result_all():
-    datas = Result.select().where(Result.user_id == current_user.id)
-    questions = []
-    categorys = []
-    number = len(datas)
-    for data in datas:
-        question = Question.get(Question.id == data.question_id)
-        questions.append(question)
-    for question in questions:
-        category = MainCategory.get(MainCategory.id == question.main_category_id)
-        categorys.append(category)
+def result_all(id):
+    # user_groups = UserGruop.select().where(UserGruop.user_id == int(id))
+    # groups = []
+    # user_groups = []
+    # users = []
+    # for user_group in user_groups:
+    #     groups.append(Group.get(Group.id == user_group.group_id))
+    # for group in groups:
+    #     user_groups.append(UserGruop.get(UserGruop.id == group.id))
+    # for user_group in user_groups:
+    #     users.append(User.get(User.id == user_group.user_id))
+    # print("これがデータ:" + str(user_groups))
+    if int(id) == current_user.id:
+        datas = Result.select().where(Result.user_id == int(id))
+        questions = []
+        categorys = []
+        number = len(datas)
+        for data in datas:
+            question = Question.get(Question.id == data.question_id)
+            questions.append(question)
+        for question in questions:
+            category = MainCategory.get(MainCategory.id == question.main_category_id)
+            categorys.append(category)
+    else:
+        return redirect(url_for("select-main-category"))
     return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys)
 
 
@@ -147,6 +161,14 @@ def add_group():
         UserGruop.create(group_id = group.id,user_id = current_user.id)
         return redirect(url_for("group"))
     return render_template("add_group.html")
+
+@app.route("/detail_group/<id>")
+def detail_group(id):
+    user_groups = UserGruop.select().where(UserGruop.group_id == id)
+    users = []
+    for user_group in user_groups:
+        users.append(User.get(id = user_group.user_id))
+    return render_template("/detail_group.html",users=users)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -24,26 +24,22 @@ def select_main_category():
     main_category_names = MainCategory.select()
     return render_template("select_main_category.html",user=user,main_category_names=main_category_names,questions=questions)
 
-@app.route("/quiz/<id>")
-def quiz(id):
+@app.route("/quiz",methods=["POST"])
+def quiz_post():
+    main_category = request.form.getlist("main_category")
+    year = request.form.getlist("year")
     page = request.args.get("page")
+    print(year)
     number = 10
     if int(page) == int(number) + 1:
         return redirect(url_for("result"))
-    datas = Question.select().where(Question.main_category_id == int(id)).order_by(fn.Random()).limit(1)
-    return render_template("quiz.html",datas = datas, page=int(page),page2 = str(page))
+    datas = Question.select().where(Question.main_category_id.in_(main_category) & Question.year.in_(year)).order_by(fn.Random()).limit(1)
+    return render_template("quiz.html",datas = datas, page=int(page),page2 = str(page),main_category=main_category,year=year)
 
-@app.route("/quiz", methods=["POST"])
-def quiz_post():
-    data = request.form.getlist("main_category")
-    year = request.form.getlist("year")
-    print(data)
-    print(year)
-    return redirect("/select-main-category")
 
-@app.route("/answer/<id>/<answer_id>")
+@app.route("/answer/<id>/<answer_id>/<main_category>/<year>",methods=["POST"])
 @login_required
-def answer(id,answer_id):
+def answer(id,answer_id,main_category,year):
     page = request.args.get("page")
     id = int(id)
     answer = Question.get(Question.id == id)
@@ -63,7 +59,7 @@ def answer(id,answer_id):
     question_id  = answer.id
     user_id = current_user.id
     Result.create(question_id = question_id,user_id=user_id,my_answer=my_answer,result=kekka)
-    return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result,page=int(page))
+    return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result,page=int(page),main_category=main_category,year=year)
 
 @app.route("/result")
 @login_required

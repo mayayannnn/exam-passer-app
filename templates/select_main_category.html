@@ -14,7 +14,7 @@
 
 <body>
     <h1>メインカテゴリ選択</h1>
-    <form action="/quiz" method="post">
+    <form action="/quiz?page=1" method="post">
         <ul class="list-group">
             {% for main_category_name in main_category_names %}
             <div class="d-grid gap-2">
@@ -35,7 +35,7 @@
                 <li class="list-group-item">
                     <input value="{{ question.year }}" name="year" type="checkbox" class="btn-check"
                         id="btn-check-{{ question.year }}" autocomplete="off">
-                    <label class="btn btn-primary" for="btn-check-{{ question.year }}">{{
+                    <label class="btn btn-info" for="btn-check-{{ question.year }}">{{
                         question.year
                         }}</label>
                 </li>
@@ -44,7 +44,7 @@
 
         <h1>ようこそ　{{ user.username }}　さん</h1>
         <a href="/result_all/{{ user.id }}">今のやつ</a>
-        <input type="submit" value="テスト送信">
+        <input type="submit" class="btn btn-success" value="テストを出題">
     </form>
 </body>
 

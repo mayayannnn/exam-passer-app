@@ -14,7 +14,9 @@
 
     <ul class="list-group">
         <li class="list-group-item"><p>{{ data.content }}</p></li>
-        <a href="/answer/{{ data.id }}/1?page={{ page }}">〇</a>
+        <form action="/answer/{{ data.id }}/1/{{ main_category }}/{{ year }}?page={{ page }}" method="post">
+        <input type="submit" value="〇">
+        </form>
         <a href="/answer/{{ data.id }}/2?page={{ page }}">×</a>
 
         {% endfor %}

@@ -13,7 +13,15 @@
 </head>
 
 <body>
-    <h1>メインカテゴリ選択</h1>
+    {% extends "layout.html" %}
+    {% block layout %}
+<!-- 
+    {% block name %}
+    メインカテゴリ選択
+    {% endblock %} -->
+
+    {{ super() }}
+
     <form action="/quiz?page=1" method="post">
         <ul class="list-group">
             {% for main_category_name in main_category_names %}
@@ -46,6 +54,7 @@
         <a href="/result_all/{{ user.id }}">今のやつ</a>
         <input type="submit" class="btn btn-success" value="テストを出題">
     </form>
+    {% endblock %}
 </body>
 
 </html>

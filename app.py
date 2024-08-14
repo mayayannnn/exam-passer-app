@@ -1,10 +1,11 @@
 from database import User,MainCategory,Answer,Question,Result,Group,UserGruop
 from flask import Flask
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,flash
 from peewee import fn
 from flask import request
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
+import ast
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -26,6 +27,7 @@ def select_main_category():
 
 @app.route("/quiz",methods=["POST"])
 def quiz_post():
+    user = current_user
     main_category = request.form.getlist("main_category")
     year = request.form.getlist("year")
     page = request.args.get("page")
@@ -34,12 +36,13 @@ def quiz_post():
     if int(page) == int(number) + 1:
         return redirect(url_for("result"))
     datas = Question.select().where(Question.main_category_id.in_(main_category) & Question.year.in_(year)).order_by(fn.Random()).limit(1)
-    return render_template("quiz.html",datas = datas, page=int(page),page2 = str(page),main_category=main_category,year=year)
+    return render_template("quiz.html",user=user,datas = datas, page=int(page),page2 = str(page),main_category=main_category,year=year)
 
 
 @app.route("/answer/<id>/<answer_id>/<main_category>/<year>",methods=["POST"])
 @login_required
 def answer(id,answer_id,main_category,year):
+    user = current_user
     page = request.args.get("page")
     id = int(id)
     answer = Question.get(Question.id == id)
@@ -59,7 +62,7 @@ def answer(id,answer_id,main_category,year):
     question_id  = answer.id
     user_id = current_user.id
     Result.create(question_id = question_id,user_id=user_id,my_answer=my_answer,result=kekka)
-    return render_template("answer.html",id=id,answer_id=answer_id,answer=answer,result=result,page=int(page),main_category=main_category,year=year)
+    return render_template("answer.html",user = user,id=id,answer_id=answer_id,answer=answer,result=result,page=int(page),main_category=ast.literal_eval(main_category),year=ast.literal_eval(year))
 
 @app.route("/result")
 @login_required
@@ -127,6 +130,7 @@ def edit_user():
         if user.password == password:
             user.password = repassword
             user.save()
+            flash("パスワードを変更しました")
         return redirect("/select-main-category")
     return render_template("/edit_user.html",user=user)
 
@@ -138,42 +142,59 @@ def login():
         user = User.get(User.username == username)
         if user and user.password == password:
             login_user(user)
+            flash(f"ようこそ{username}さん")
             return redirect(url_for('select_main_category'))
+        else:
+            flash("パスワードかユーザー名を間違っています")
+            print("hello")
     return render_template('login.html')
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
+    flash("ログアウトしました")
     return redirect(url_for('login'))
 
 @app.route("/group")
 @login_required
 def group():
+    user = current_user
     user_groups = UserGruop.select().where(UserGruop.user_id == int(current_user.id))
     groups = []
     for user_group in user_groups:
         groups.append(Group.get(id = user_group.id))
-    return render_template("group.html",groups = groups)
+    return render_template("group.html",groups = groups,user=user)
 
 @app.route("/add_group",methods=['GET', 'POST'])
 @login_required
 def add_group():
+    user = current_user
     if request.method == "POST":
         name = request.form["name"]
         Group.create(name = name)
         group = Group.get(Group.name == name)
         UserGruop.create(group_id = group.id,user_id = current_user.id)
         return redirect(url_for("group"))
-    return render_template("add_group.html")
+    return render_template("add_group.html",user=user)
 
 @app.route("/detail_group/<id>")
 def detail_group(id):
+    user = current_user
     user_groups = UserGruop.select().where(UserGruop.group_id == id)
     users = []
     for user_group in user_groups:
         users.append(User.get(id = user_group.user_id))
-    return render_template("/detail_group.html",users=users)
+    return render_template("/detail_group.html",users=users,user = user,id = id)
+
+@app.route("/add_member",methods=["POST"])
+def add_member():
+    username = request.form["username"]
+    group_id = request.form["group"]
+    user_id = User.get(User.username == username)
+    UserGruop.create(user_id = user_id, group_id = group_id)
+    flash("グループに新しいメンバーを追加しました")
+    return redirect(f"/detail_group/{group_id}")
 
 if __name__ == "__main__":
     app.run(debug=True)

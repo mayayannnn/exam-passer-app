@@ -13,6 +13,16 @@
 </head>
 
 <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    
     <div class="text-center">
         <div class="mt-2">
             <h1 class="h3 fst-italic">Login</h1>

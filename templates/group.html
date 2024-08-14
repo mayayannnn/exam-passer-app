@@ -6,11 +6,26 @@
     <title>group</title>
 </head>
 <body>
-    <h1>グループ</h1>
+
+    {% extends "layout.html" %}
+    {% block layout %}
+<!-- 
+    {% block name %}
+    グループ
+    {% endblock %} -->
+
+    {{ super() }}
+
     {% for group in groups %}
     <a href="/detail_group/{{ group.id }}">{{ group.name }}</a>
     <br>
     {% endfor %}
     <a href="/add_group">グループを追加する</a>
+
+    {% endblock %}
+
+    {% block navber %}
+    {{ super() }}
+    {% endblock %}
 </body>
 </html>

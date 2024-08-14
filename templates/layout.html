@@ -10,11 +10,35 @@
 <body>
     {% block layout %}
     
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <h1 class="navbar-brand">{% block name %} {% endblock %}</h1>
         </div>
     </nav>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% endblock %}
+
+    {% block navber %}
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="/select-main-category" class="navbar-brand">home</a>
+            <a href="/result_all/{{ user.id }}" class="navbar-brand">result</a>
+            <a href="/group" class="navbar-brand">group</a>
+            <a href="/edit_user" class="navbar-brand">edit</a>
+            <a href="/logout" class="navbar-brand">logout</a>
+        </div>
+                
+      </nav>
 
     {% endblock %}
 </body>

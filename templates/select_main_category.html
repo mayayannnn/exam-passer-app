@@ -22,6 +22,9 @@
 
     {{ super() }}
 
+
+
+
     <form action="/quiz?page=1" method="post">
         <ul class="list-group">
             {% for main_category_name in main_category_names %}
@@ -49,11 +52,13 @@
                 </li>
             {% endfor %}
         </ul>
-
-        <h1>ようこそ　{{ user.username }}　さん</h1>
-        <a href="/result_all/{{ user.id }}">今のやつ</a>
+        
         <input type="submit" class="btn btn-success" value="テストを出題">
     </form>
+    {% endblock %}
+
+    {% block navber %}
+    {{ super() }}
     {% endblock %}
 </body>
 

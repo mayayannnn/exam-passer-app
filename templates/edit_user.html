@@ -6,6 +6,15 @@
     <title>Document</title>
 </head>
 <body>
+    {% extends "layout.html" %}
+    {% block layout %}
+<!-- 
+    {% block name %}
+    ユーザー編集
+    {% endblock %} -->
+
+    {{ super() }}
+
     <h1>名前</h1>
 
     <form action="/edit_user" method="post">
@@ -20,5 +29,10 @@
     <input type="submit" value="変更">
     </form>
 
+    {% endblock %}
+
+    {% block navber %}
+    {{ super() }}
+    {% endblock %}
 </body>
 </html>

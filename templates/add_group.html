@@ -6,14 +6,26 @@
     <title>add_group</title>
 </head>
 <body>
-    <h1>グループ作成</h1>
+    {% extends "layout.html" %}
+    {% block layout %}
+<!-- 
+    {% block name %}
+    グループ作成
+    {% endblock %} -->
+
+    {{ super() }}
+
     <form action="/add_group" method="post">
 
     <h1>グループ名</h1>
-    <input type="text" name="name" id="">
+    <input type="text" name="name">
 
     <input type="submit" value="作成">  
     </form>
+    {% endblock %}
 
+    {% block navber %}
+    {{ super() }}
+    {% endblock %}
 </body>
 </html>

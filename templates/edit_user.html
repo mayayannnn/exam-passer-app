@@ -19,14 +19,23 @@
 
     <form action="/edit_user" method="post">
 
-    <input type="text" name="username" value="{{ user.username }}" id="">
-    
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" name="username"  value="{{ user.username }}" class="form-control" aria-describedby="basic-addon1">
+        </div>
+
 
     <h1>現在のパスワード</h1>
-    <input type="password" name="password">
+    <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
     <h1>変更後のパスワード</h1>
-    <input type="password" name="repassword" id="">
-    <input type="submit" value="変更">
+    <div class="form-floating">
+        <input type="password" name="repassword" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">RePassword</label>
+      </div>
+    <input type="submit" class="btn btn-success" value="変更">
     </form>
 
     {% endblock %}

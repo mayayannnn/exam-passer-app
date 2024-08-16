@@ -29,7 +29,7 @@
         <ul class="list-group">
             {% for main_category_name in main_category_names %}
             <div class="d-grid gap-2">
-                <li class="list-group-item">
+                <li  class="list-group-item">
                     <input value="{{ main_category_name.id }}" name="main_category" type="checkbox" class="btn-check"
                         id="btn-check-{{ main_category_name.id }}" autocomplete="off">
                     <label class="btn btn-primary" for="btn-check-{{ main_category_name.id }}">{{

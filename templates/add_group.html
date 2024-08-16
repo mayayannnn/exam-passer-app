@@ -18,9 +18,12 @@
     <form action="/add_group" method="post">
 
     <h1>グループ名</h1>
-    <input type="text" name="name">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">グループ名</span>
+        <input type="text" name="name"  class="form-control" placeholder="Groupname" aria-label="Groupname" aria-describedby="basic-addon1">
+      </div>
 
-    <input type="submit" value="作成">  
+    <input type="submit" class="btn btn-success" value="作成">  
     </form>
     {% endblock %}
 

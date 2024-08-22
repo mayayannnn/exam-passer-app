@@ -163,7 +163,7 @@ def group():
     user_groups = UserGruop.select().where(UserGruop.user_id == int(current_user.id))
     groups = []
     for user_group in user_groups:
-        groups.append(Group.get(id = user_group.id))
+        groups.append(Group.get(id = user_group.group_id))
     return render_template("group.html",groups = groups,user=user)
 
 @app.route("/add_group",methods=['GET', 'POST'])

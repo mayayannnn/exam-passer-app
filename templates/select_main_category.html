@@ -23,37 +23,60 @@
     {{ super() }}
 
 
-
-
     <form action="/quiz?page=1" method="post">
-        <ul class="list-group">
-            {% for main_category_name in main_category_names %}
-            <div class="d-grid gap-2">
-                <li  class="list-group-item">
-                    <input value="{{ main_category_name.id }}" name="main_category" type="checkbox" class="btn-check"
-                        id="btn-check-{{ main_category_name.id }}" autocomplete="off">
-                    <label class="btn btn-primary" for="btn-check-{{ main_category_name.id }}">{{
-                        main_category_name.name
-                        }}</label>
-                </li>
-                <!-- <a href="/quiz/{{ main_category_name.id}}?page=1" class="btn btn-primary">{{ main_category_name.name }}</a> -->
-                {% endfor %}
-        </ul>
 
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">カテゴリ選択</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">出題年選択</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+
+            <ul class="list-group">
+                {% for main_category_name in main_category_names %}
+                <div class="d-grid gap-2">
+
+                    <div class="form-check"  >
+                        <input class="form-check-input" id="btn-check-{{ main_category_name.id }}" value="{{ main_category_name.id }}" name="main_category" type="checkbox" checked>
+                        <label  class="form-check-label"  for="btn-check-{{ main_category_name.id }}">
+                            {{
+                                main_category_name.name}}
+                        </label>
+                    </div>
+
+                    {% endfor %}
+            </ul>
+
+
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+
+
+                
         <ul class="list-group">
             {% for question in questions %}
             <div class="d-grid gap-2">
-                <li class="list-group-item">
-                    <input value="{{ question.year }}" name="year" type="checkbox" class="btn-check"
-                        id="btn-check-{{ question.year }}" autocomplete="off">
-                    <label class="btn btn-info" for="btn-check-{{ question.year }}">{{
-                        question.year
-                        }}</label>
-                </li>
+
+                <div class="form-check">
+                    <input class="form-check-input" value="{{ question.year }}" name="year"  name="main_category" type="checkbox" checked id="btn-check-{{ question.year }}">
+                    <label class="form-check-label"  for="btn-check-{{ question.year }}">
+                        {{
+                            question.year
+                            }}
+                    </label>
+                </div>
+
             {% endfor %}
         </ul>
-        
-        <input type="submit" class="btn btn-success" value="テストを出題">
+
+        </div>
+
+            <input type="submit" class="btn btn-success mt-5" value="テストを出題">
     </form>
     {% endblock %}
 

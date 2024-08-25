@@ -80,17 +80,7 @@ def result():
 @app.route("/result_all/<id>")
 @login_required
 def result_all(id):
-    # user_groups = UserGruop.select().where(UserGruop.user_id == int(id))
-    # groups = []
-    # user_groups = []
-    # users = []
-    # for user_group in user_groups:
-    #     groups.append(Group.get(Group.id == user_group.group_id))
-    # for group in groups:
-    #     user_groups.append(UserGruop.get(UserGruop.id == group.id))
-    # for user_group in user_groups:
-    #     users.append(User.get(User.id == user_group.user_id))
-    # print("これがデータ:" + str(user_groups))
+
     if int(id) == current_user.id:
         datas = Result.select().where(Result.user_id == int(id))
         questions = []
@@ -106,6 +96,24 @@ def result_all(id):
         return redirect(url_for("select-main-category"))
     return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys)
 
+
+@app.route("/result_group/<id>")
+def result_group(id):
+    user = User.get(User.id == id)
+    me = User.get(User.id == current_user.id)
+    user_group = UserGruop.select().where()
+    # user_groups = UserGruop.select().where(UserGruop.user_id == int(id))
+    # groups = []
+    # user_groups = []
+    # users = []
+    # for user_group in user_groups:
+    #     groups.append(Group.get(Group.id == user_group.group_id))
+    # for group in groups:
+    #     user_groups.append(UserGruop.get(UserGruop.id == group.id))
+    # for user_group in user_groups:
+    #     users.append(User.get(User.id == user_group.user_id))
+    # print("これがデータ:" + str(user_groups))
+    return redirect("/group")
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

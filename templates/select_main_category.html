@@ -44,7 +44,7 @@
 
                         <div class="form-check">
                             <label  class="form-check-label"  for="btn-check-{{ main_category_name.id }}">
-                                <input class="form-check-input" onchange="change()" id="btn-check-{{ main_category_name.id }}" value="{{ main_category_name.id }}" name="main_category" type="checkbox" checked>
+                                <input class="form-check-input" onchange="change()" id="btn-check-{{ main_category_name.id }}" value="{{ main_category_name.id }}" name="main_category" type="checkbox" >
                             {{main_category_name.name}}
                             </label>
                         </div>
@@ -62,7 +62,7 @@
                 <div class="form-check">
                     
                     <label class="form-check-label"  for="btn-check-{{ question.year }}">
-                        <input class="form-check-input" onchange="change()" value="{{ question.year }}" name="year" type="checkbox" checked id="btn-check-{{ question.year }}">
+                        <input class="form-check-input" onchange="change()" value="{{ question.year }}" name="year" type="checkbox" id="btn-check-{{ question.year }}">
                         {{question.year}}
                     </label>
                 </div>

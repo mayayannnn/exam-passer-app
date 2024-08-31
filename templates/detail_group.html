@@ -31,7 +31,7 @@
     <ul class="list-group">
         
         {% for user in users %}
-        <li class="list-group-item"><h1>{{ user.username }}</h1></li>
+        <li class="list-group-item"><a href="/result_all/{{ user.id }}">{{ user.username }}</a></li>
         
         {% endfor %}
       </ul>

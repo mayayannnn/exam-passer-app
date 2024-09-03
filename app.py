@@ -6,6 +6,8 @@ from flask import request
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
 import ast
+import datetime
+import io,csv
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -20,6 +22,49 @@ def load_user(user_id):
 @app.route("/")
 def index():
     return redirect("/select-main-category")
+
+@app.route("/add-question")
+@login_required
+def add_question():
+    main_categorys = MainCategory.select()
+    currentDateTime = datetime.datetime.now()
+    date = currentDateTime.date()
+    year = date.strftime("%Y")
+    yearfor = 10
+    if request.method:
+        print("hello")
+    user = current_user
+    return render_template("add_question.html",user=user,main_categorys=main_categorys,year=int(year),yearfor=yearfor)
+
+@app.route("/create-question",methods=["POST"])
+def create_question():
+    answer = request.form["answer"]
+    year = request.form["year"]
+    category = request.form["category"]
+    name = request.form["name"]
+    Question.create(year = year,content = name ,main_category_id = category,answer_id = answer)
+    flash("登録しました")
+    return redirect("/add-question")
+
+@app.route("/create-question-upload",methods=["POST"])
+def create_question_upload():
+    file = request.files.get("csv")
+    if file is  None:
+        flash("ファイルを指定してください")
+        return redirect("/add-question")
+    elif "text/csv" != file.mimetype:
+        flash("csvファイルにしてください")
+        return redirect("/add-question")
+    
+    text_stream = io.TextIOWrapper(file.stream,encoding="utf-8")
+    reader = csv.reader(text_stream)
+    header = next(reader)
+    for row in reader:
+        Question.create(year = int(row[0]),main_category_id = int(row[1]),content = row[2],answer_id = int(row[3]))
+        print(row)
+    flash("登録しました")
+    return redirect("/add-question")
+
 
 @app.route("/select-main-category")
 @login_required

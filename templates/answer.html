@@ -18,6 +18,11 @@
     {{ super() }}
 
     <h1 style="font-size: 100px;">{{ result }}</h1>
+    {% if result == "正解": %}
+    <img src="/static/quiz_button_True.png" alt=""  width="300px" height="300px">
+    {% elif result == "不正解": %}
+    <img src="/static/quiz_button_False.png" alt="" width="300px" height="300px">
+    {% endif %}
     <form action="/quiz?page={{ page + 1 }}" method="post">
         <select name="main_category" id="" hidden>
             {% for m in main_category %}
@@ -29,7 +34,10 @@
             <option value="{{ y }}" selected>{{ y }}</option>
             {% endfor %}
         </select>
-    <input type="submit" class="btn btn-success" value="次へ" style="width: 200px; height: 100px;font-size: 50px;">
+        <div style="margin-left: 100%;">
+            <input type="submit" class="btn btn-success " value="次へ" style="width: 100px; height: 50px;font-size: 25px;">
+        </div>
+
     </form>
 
     {% endblock %}

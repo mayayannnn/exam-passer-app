@@ -131,8 +131,17 @@ def result():
         datas2.append(Question.get(Question.id == Result.get(Result.id == i).question_id ))
         if a.result == "True":
             y = y + 1
-    k = Decimal(str(y / number * 100)).quantize(Decimal('0'), ROUND_HALF_UP)
-    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number),number2 = str(number),y = str(y),user=user,k=str(k),categorys=categorys)
+    for category in categorys:
+        category.result = []
+        category.result_num = 0
+    for category in categorys:
+        for i in datasN:
+            question = Question.get_by_id(i.question_id)
+            if question.main_category_id.id == category.id:
+                category.result.append(i.result)
+                if i.result == "True":
+                    category.result_num = category.result_num + 1
+    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number),number2 = str(number),y = str(y),user=user,y2 = int(y),categorys=categorys)
 
 @app.route("/result_all/<id>")
 @login_required

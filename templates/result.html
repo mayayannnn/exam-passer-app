@@ -23,14 +23,16 @@
   {{ super() }}
   <div class="text-center">
     <p>あなたの正解率</p>
-    <h1 style="color: darkblue;">約{{ k }}%</h1>
+    <h1 style="color: darkblue;">約{{ (y2 / number * 100)|round(0) }}%</h1>
     <h3>{{ y }}/{{ number2 }}</h3>
   </div>
 
-  <h1>分野ごとの結果</h1>
+  <h1>分野ごとの正解率</h1>
   {% for category in categorys %}
-  <p>{{ category.name }}</p>
-  <p>%</p>
+  {% if category.result|length > 0 %}
+  <h2>{{ category.name }}</h2>
+    <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+  {% endif %}
   {% endfor %}
 
     

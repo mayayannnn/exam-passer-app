@@ -21,7 +21,7 @@
     <h1>手動登録</h1>
     <form action="/create-question" method="post">
         
-        <h1>カテゴリ</h1>
+        <h2>カテゴリ</h2>
         <div class="input-group mb-3">
             <label class="input-group-text" for="inputGroupSelect01">カテゴリ選択</label>
             <select  required  class="form-select" id="inputGroupSelect01" name="category">
@@ -31,7 +31,7 @@
               {% endfor %}
             </select>
           </div>
-        <h1>問題</h1>
+        <h2>問題</h2>
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">問題内容</span>
             <input  required type="text" class="form-control" placeholder="content" aria-label="Username" aria-describedby="basic-addon1" name="name">
@@ -47,7 +47,7 @@
             </select>
           </div>
         
-        <h1>答え</h1>
+        <h2>答え</h2>
         <div class="form-check">
             <input value="1" class="form-check-input" type="radio" name="answer" id="flexRadioDefault1">
             <label class="form-check-label" for="flexRadioDefault1">
@@ -67,8 +67,12 @@
     <h1>自動登録(csv)</h1>
     <form action="/create-question-upload" method="post" enctype="multipart/form-data">
 
-        <input type="file" name="csv"  id="">
-        <input type="submit" value="登録" class="btn btn-success">
+
+      <div class="input-group mb-3">
+        <input type="file" class="form-control" id="inputGroupFile02" name="csv">
+        <label class="input-group-text" for="inputGroupFile02">upload</label>
+      </div>
+      <input type="submit" value="登録" class="btn btn-success">
     </form>
 
     {% endblock %}

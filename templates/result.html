@@ -13,44 +13,34 @@
 </head>
 
 <body>
-    <h1>結果</h1>
-    
+  {% extends "layout.html" %}
+  {% block layout %}
+<!-- 
+  {% block name %}
+  結果
+  {% endblock %} -->
 
-    
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">問題番号</th>
-            <th scope="col">問題内容</th>
-            <th scope="col">あなたの答え</th>
-            <th scope="col">結果</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for i in range( number ) %}
-          <tr>
-            <th scope="row">第{{ i + 1 }}問</th>
-            <td>{{ datas2[i].content }}</td>
+  {{ super() }}
+  <div class="text-center">
+    <p>あなたの正解率</p>
+    <h1 style="color: darkblue;">約{{ k }}%</h1>
+    <h3>{{ y }}/10</h3>
+  </div>
 
-            {% if datas[i].my_answer == "True": %}
-                <td>〇</td>
-            {% else: %}
-                <td>×</td>
-            {% endif %}
-
-            {% if datas[i].result == "True": %}
-                <td>正解</td>
-            {% else: %}
-                <td>不正解</td>
-            {% endif %}
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-
+  <h1>分野ごとの結果</h1>
+  {% for category in categorys %}
+  <p>{{ category.name }}</p>
+  <p>%</p>
+  {% endfor %}
 
     
     <a href="/select-main-category">戻る</a>
+
+    {% endblock %}
+
+    {% block navber %}
+    {{ super() }}
+    {% endblock %}   
 </body>
 
-</html>
+</html> 

@@ -8,6 +8,7 @@ import os
 import ast
 import datetime
 import io,csv
+from decimal import Decimal, ROUND_HALF_UP, ROUND_HALF_EVEN
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -116,19 +117,27 @@ def answer(id,answer_id,main_category,year):
 @app.route("/result")
 @login_required
 def result():
+    y = 0
+    categorys = MainCategory.select()
+    user = current_user
     datas = Result.select().where(Result.user_id == current_user.id)
     number = 10
     datasN = datas[-number:]
     datas = []
     datas2 = []
     for i in datasN:
+        a = Result.get(Result.id == i)
         datas.append(Result.get(Result.id == i))
         datas2.append(Question.get(Question.id == Result.get(Result.id == i).question_id ))
-    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number))
+        if a.result == "True":
+            y = y + 1
+    k = Decimal(str(y / number * 100)).quantize(Decimal('0'), ROUND_HALF_UP)
+    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number),y = str(y),user=user,k=str(k),categorys=categorys)
 
 @app.route("/result_all/<id>")
 @login_required
 def result_all(id):
+    user = current_user
     datas = Result.select().where(Result.user_id == int(id))
     questions = []
     categorys = []
@@ -152,7 +161,8 @@ def result_all(id):
                     a = 2
         if a == 1:
             return redirect("/select-main-category")
-    return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys)
+    print("データ:" + str(questions))
+    return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys,user=user,)
 
 
 @app.route('/register', methods=['GET', 'POST'])

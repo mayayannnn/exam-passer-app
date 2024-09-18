@@ -11,7 +11,33 @@
     crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>今までの結果</h1>
+    {% extends "layout.html" %}
+    {% block layout %}
+  <!-- 
+    {% block name %}
+    今までの結果
+    {% endblock %} -->
+  
+    {{ super() }}
+
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link 1" id="tab-1" data-bs-toggle="tab" data-bs-target="#home-tab-1" type="button" role="tab" aria-controls="home-tab-1" aria-selected="true">経済性管理</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link 2" id="tab-2" data-bs-toggle="tab" data-bs-target="#home-tab-2" type="button" role="tab" aria-controls="home-tab-2" aria-selected="true">人的資源管理</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link 3" id="tab-3" data-bs-toggle="tab" data-bs-target="#home-tab-3" type="button" role="tab" aria-controls="home-tab-3" aria-selected="true">情報管理</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link 4" id="tab-4" data-bs-toggle="tab" data-bs-target="#home-tab-4" type="button" role="tab" aria-controls="home-tab-4" aria-selected="true">安全管理</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link 5" id="tab-5" data-bs-toggle="tab" data-bs-target="#home-tab-5" type="button" role="tab" aria-controls="home-tab-5" aria-selected="true">社会環境管理</button>
+        </li>
+    </ul>
 
     <table class="table">
         <thead>
@@ -23,7 +49,10 @@
           </tr>
         </thead>
         <tbody>
-            {% for i in range( number ) %}
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show 1" id="home-tab-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+            {% for i in range(number) %}
+            {% if categorys[i].id == 1: %}
             <tr>
                 <th scope="row">{{ categorys[i].name }}</th>
 
@@ -42,9 +71,105 @@
                     {% endif %}
 
             </tr>
+            {% endif %}
             {% endfor %}
-        </tbody>
+        </div>
+        <div class="tab-pane fade show 2" id="home-tab-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+            {% for i in two %}
+            <tr></tr>
+                <th scope="row">{{ categorys[i].name }}</th>
+
+                    <td>{{ questions[i].content }}</td>
+
+                    {% if datas[i].my_answer == "True": %}
+                        <td>〇</td>
+                    {% else: %}
+                        <td>×</td>
+                    {% endif %}
+    
+                    {% if datas[i].result == "True": %}
+                        <td>正解</td>
+                    {% else: %}
+                        <td>不正解</td>
+                    {% endif %}
+
+            </tr>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade show 3" id="home-tab-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
+            {% for i in three %}
+            <tr></tr>
+                <th scope="row">{{ categorys[i].name }}</th>
+
+                    <td>{{ questions[i].content }}</td>
+
+                    {% if datas[i].my_answer == "True": %}
+                        <td>〇</td>
+                    {% else: %}
+                        <td>×</td>
+                    {% endif %}
+    
+                    {% if datas[i].result == "True": %}
+                        <td>正解</td>
+                    {% else: %}
+                        <td>不正解</td>
+                    {% endif %}
+
+            </tr>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade show 4" id="home-tab-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
+            {% for i in four %}
+            <tr></tr>
+                <th scope="row">{{ categorys[i].name }}</th>
+
+                    <td>{{ questions[i].content }}</td>
+
+                    {% if datas[i].my_answer == "True": %}
+                        <td>〇</td>
+                    {% else: %}
+                        <td>×</td>
+                    {% endif %}
+    
+                    {% if datas[i].result == "True": %}
+                        <td>正解</td>
+                    {% else: %}
+                        <td>不正解</td>
+                    {% endif %}
+
+            </tr>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade show 5" id="home-tab-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0">
+            {% for i in five %}
+            <tr></tr>
+                <th scope="row">{{ categorys[i].name }}</th>
+
+                    <td>{{ questions[i].content }}</td>
+
+                    {% if datas[i].my_answer == "True": %}
+                        <td>〇</td>
+                    {% else: %}
+                        <td>×</td>
+                    {% endif %}
+    
+                    {% if datas[i].result == "True": %}
+                        <td>正解</td>
+                    {% else: %}
+                        <td>不正解</td>
+                    {% endif %}
+
+            </tr>
+            {% endfor %}
+        </div>
+    </div>
+    </tbody>
       </table>
 
+      {% endblock %}
+
+      {% block navber %}
+      {{ super() }}
+      {% endblock %}   
 </body>
 </html>

@@ -132,7 +132,7 @@ def result():
         if a.result == "True":
             y = y + 1
     k = Decimal(str(y / number * 100)).quantize(Decimal('0'), ROUND_HALF_UP)
-    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number),y = str(y),user=user,k=str(k),categorys=categorys)
+    return render_template("result.html",datas = datas,datas2 = datas2,number = int(number),number2 = str(number),y = str(y),user=user,k=str(k),categorys=categorys)
 
 @app.route("/result_all/<id>")
 @login_required

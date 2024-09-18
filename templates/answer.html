@@ -17,7 +17,7 @@
 
     {{ super() }}
 
-    <h1>{{ result }}</h1>
+    <h1 style="font-size: 100px;">{{ result }}</h1>
     <form action="/quiz?page={{ page + 1 }}" method="post">
         <select name="main_category" id="" hidden>
             {% for m in main_category %}
@@ -29,7 +29,7 @@
             <option value="{{ y }}" selected>{{ y }}</option>
             {% endfor %}
         </select>
-    <input type="submit" class="btn btn-success" value="次へ">
+    <input type="submit" class="btn btn-success" value="次へ" style="width: 200px; height: 100px;font-size: 50px;">
     </form>
 
     {% endblock %}

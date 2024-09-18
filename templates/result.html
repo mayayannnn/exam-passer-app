@@ -24,7 +24,7 @@
   <div class="text-center">
     <p>あなたの正解率</p>
     <h1 style="color: darkblue;">約{{ k }}%</h1>
-    <h3>{{ y }}/10</h3>
+    <h3>{{ y }}/{{ number2 }}</h3>
   </div>
 
   <h1>分野ごとの結果</h1>
@@ -34,7 +34,7 @@
   {% endfor %}
 
     
-    <a href="/select-main-category">戻る</a>
+    <a href="/select-main-category"  class="btn btn-secondary">戻る</a>
 
     {% endblock %}
 

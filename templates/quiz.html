@@ -22,11 +22,11 @@
     <ul class="list-group">
         <li class="list-group-item"><p>{{ data.content }}</p></li>
         <form action="/answer/{{ data.id }}/1/{{ main_category }}/{{ year }}?page={{ page }}" method="post">
-        <input type="submit" value="〇">
+        <input class="mt-3" type="image" src="/static/quiz_button_True.png" name="submit" width="130" height="130">
         </form>
 
         <form action="/answer/{{ data.id }}/2/{{ main_category }}/{{ year }}?page={{ page }}" method="post">
-            <input type="submit" value="×">
+            <input class="mt-3" type="image" src="/static/quiz_button_False.png" name="submit" width="130" height="130">
             </form>
 
         {% endfor %}

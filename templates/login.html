@@ -15,11 +15,9 @@
 <body>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <ul>
         {% for message in messages %}
-        <li>{{ message }}</li>
+        <p class="alert alert-success">{{ message }}</p>
         {% endfor %}
-    </ul>
     {% endif %}
     {% endwith %}
     

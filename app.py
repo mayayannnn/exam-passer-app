@@ -150,6 +150,7 @@ def result_all(id):
     datas = Result.select().where(Result.user_id == int(id))
     questions = []
     categorys = []
+    categories = MainCategory.select()
     number = len(datas)
     for data in datas:
         question = Question.get(Question.id == data.question_id)
@@ -170,8 +171,19 @@ def result_all(id):
                     a = 2
         if a == 1:
             return redirect("/select-main-category")
-    print("データ:" + str(questions))
-    return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys,user=user,)
+        
+
+    for category in categories:
+        category.result = []
+        category.result_num = 0
+    for category in categories:
+        for i in datas:
+            question = Question.get_by_id(i.question_id)
+            if question.main_category_id.id == category.id:
+                category.result.append(i.result)
+                if i.result == "True":
+                    category.result_num = category.result_num + 1
+    return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys,user=user,categories=categories)
 
 
 @app.route('/register', methods=['GET', 'POST'])

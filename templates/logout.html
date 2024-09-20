@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>logout</title>
+</head>
+<body>
+    {% extends "layout.html" %}
+    {% block layout %}
+  <!-- 
+    {% block name %}
+    本日の結果
+    {% endblock %} -->
+  
+    {{ super() }}
+
+    <div class="text-center">
+    <h1 style="color: darkblue;">約{{ (all_num /all_result_num * 100)|round(0) }}%</h1>
+    {{ all_result_num }}/{{ all_num }}
+  </div>
+
+  
+    {% for category in categorys %}
+    {% if category.result|length > 0 %}
+    <h2>{{ category.name }}</h2>
+      <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+    {% endif %}
+    {% endfor %}
+  
+
+    {% endblock %}
+
+    {% block navber %}
+    {{ super() }}
+    {% endblock %}   
+</body>
+</html>

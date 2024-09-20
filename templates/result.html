@@ -28,6 +28,9 @@
   </div>
 
   <h1>分野ごとの正解率</h1>
+
+  <h1>{{ all_result_num }}</h1>
+
   {% for category in categorys %}
   {% if category.result|length > 0 %}
   <h2>{{ category.name }}</h2>

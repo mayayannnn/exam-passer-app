@@ -9,6 +9,7 @@ import ast
 import datetime
 import io,csv
 from decimal import Decimal, ROUND_HALF_UP, ROUND_HALF_EVEN
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -231,8 +232,31 @@ def login():
 @login_required
 def logout():
     logout_user()
+    user = current_user
+    all_num = 0
+    categorys = MainCategory.select()
+    today = datetime.date.today()
+    first_letter = fn.LOWER(fn.SUBSTR(Result.created_at, 1, 10))
+    results = Result.select().where(first_letter == today)
+    all_result_num = 0
+
+    for category in categorys:
+        category.result = []
+        category.result_num = 0
+
+    for category in categorys:
+        for i in results:
+            question = Question.get_by_id(i.question_id)
+            if question.main_category_id.id == category.id:
+                category.result.append(i.result)
+                all_num = all_num + 1
+                if i.result == "True":
+                    category.result_num = category.result_num + 1
+                    all_result_num = all_result_num + 1
+    print(all_result_num)
     flash("ログアウトしました")
-    return redirect(url_for('login'))
+
+    return render_template("logout.html",user = user,results = results,categorys=categorys,all_result_num=all_result_num,all_num=all_num)
 
 @app.route("/group")
 @login_required

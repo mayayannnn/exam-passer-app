@@ -46,7 +46,7 @@
             {% for category in categories %}
             {% if category.id == 1: %}
             <h2>{{ category.name }}</h2>
-              <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+              <p>約{{ (category.result_num / category.result|length * 100)|round(1) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
             {% endif %}
             {% endfor %}
 
@@ -56,7 +56,7 @@
             {% for category in categories %}
             {% if category.id == 2: %}
             <h2>{{ category.name }}</h2>
-              <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+              <p>約{{ (category.result_num / category.result|length * 100)|round(1) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
             {% endif %}
             {% endfor %}
             
@@ -66,7 +66,7 @@
             {% for category in categories %}
             {% if category.id == 3: %}
             <h2>{{ category.name }}</h2>
-              <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+              <p>約{{ (category.result_num / category.result|length * 100)|round(1) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
             {% endif %}
             {% endfor %}
             
@@ -76,7 +76,7 @@
             {% for category in categories %}
             {% if category.id == 4: %}
             <h2>{{ category.name }}</h2>
-              <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+              <p>約{{ (category.result_num / category.result|length * 100)|round(1) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
             {% endif %}
             {% endfor %}
             
@@ -86,7 +86,7 @@
             {% for category in categories %}
             {% if category.id == 5: %}
             <h2>{{ category.name }}</h2>
-              <p>約{{ (category.result_num / category.result|length * 100)|round(0) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
+              <p>約{{ (category.result_num / category.result|length * 100)|round(1) }}%　　{{ category.result_num }}/{{ category.result|length }}</p>
             {% endif %}
             {% endfor %}
             

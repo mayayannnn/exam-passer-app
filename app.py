@@ -166,15 +166,13 @@ def result_all(id):
         user_groups = UserGruop.select().where(UserGruop.user_id == id)
         my_groups = UserGruop.select().where(UserGruop.user_id == current_user.id)
         for usergroup in user_groups:
-            print(str(usergroup.group_id))
             for my_group in my_groups:
                 if usergroup.group_id ==  my_group.group_id:
                     a = 2
         if a == 1:
             return redirect("/select-main-category")
-        
-
     for category in categories:
+
         category.result = []
         category.result_num = 0
     for category in categories:
@@ -184,6 +182,11 @@ def result_all(id):
                 category.result.append(i.result)
                 if i.result == "True":
                     category.result_num = category.result_num + 1
+    if len(category.result) != 0:
+        pass
+    else:
+        return "データがありませんでした"
+
     return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys,user=user,categories=categories)
 
 
@@ -253,9 +256,11 @@ def logout():
                 if i.result == "True":
                     category.result_num = category.result_num + 1
                     all_result_num = all_result_num + 1
-    print(all_result_num)
     flash("ログアウトしました")
-
+    if len(category.result) != 0:
+        pass
+    else:
+        return "データがありませんでした"
     return render_template("logout.html",user = user,results = results,categorys=categorys,all_result_num=all_result_num,all_num=all_num)
 
 @app.route("/group")

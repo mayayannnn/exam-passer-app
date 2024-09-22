@@ -182,11 +182,6 @@ def result_all(id):
                 category.result.append(i.result)
                 if i.result == "True":
                     category.result_num = category.result_num + 1
-    if len(category.result) != 0:
-        pass
-    else:
-        return "データがありませんでした"
-
     return render_template("/result_all.html",datas = datas,questions = questions,number = number,categorys = categorys,user=user,categories=categories)
 
 
@@ -257,10 +252,6 @@ def logout():
                     category.result_num = category.result_num + 1
                     all_result_num = all_result_num + 1
     flash("ログアウトしました")
-    if len(category.result) != 0:
-        pass
-    else:
-        return "データがありませんでした"
     return render_template("logout.html",user = user,results = results,categorys=categorys,all_result_num=all_result_num,all_num=all_num)
 
 @app.route("/group")

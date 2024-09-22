@@ -16,8 +16,12 @@
     {{ super() }}
 
     <div class="text-center">
-    <h1 style="color: darkblue;">約{{ (all_num /all_result_num * 100)|round(0) }}%</h1>
+    {% if all_result_num > 0 %}
+    <h1 style="color: darkblue;">約{{ ( all_result_num /  all_num  * 100)|round(0) }}%</h1>
     {{ all_result_num }}/{{ all_num }}
+    {% else %}
+    <p>今日はなにも勉強していません</p>
+    {% endif %}
   </div>
 
   
